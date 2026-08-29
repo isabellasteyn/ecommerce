@@ -1,0 +1,8 @@
+{% extends 'shop/base.html' %}{% block content %}
+<h1>Products</h1>
+{% for p in products %}
+<h3><a href="{% url 'product_detail' p.pk %}">{{p.name}}</a> — R{{p.price}}</h3>
+<p>{{p.store.name}} | Stock: {{p.stock}}</p>
+{% empty %}
+<p>No products yet.</p>
+{% endfor %}{% endblock %}

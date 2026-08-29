@@ -1,0 +1,59 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>eCommerce</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1000px;
+        margin: auto;
+        padding: 20px;
+      }
+      nav a {
+        margin-right: 12px;
+      }
+      input,
+      textarea,
+      select {
+        display: block;
+        margin: 7px 0;
+        padding: 7px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+      .msg {
+        padding: 8px;
+        background: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'home' %}">Products</a>
+      {% if is_buyer %}<a href="{% url 'cart' %}">Cart</a>{% endif %}
+
+      {% if user.is_authenticated %} {% if is_vendor %}
+      <a href="{% url 'store_list' %}">My stores</a>
+      {% endif %}
+
+      <a href="{% url 'logout' %}">Logout</a>
+
+      {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Register</a>
+      {% endif %}
+    </nav>
+    {% for message in messages %}
+    <p class="msg">{{ message }}</p>
+    {% endfor %} {% block content %} {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{% extends 'shop/base.html' %}{% block content %}
+<h1>Checkout successful</h1>
+<p>Invoice: {{order.invoice_number}}</p>
+<p>Total: R{{order.total}}</p>
+<p>Your invoice was sent to your email address.</p>
+{% endblock %}

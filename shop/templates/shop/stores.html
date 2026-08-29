@@ -1,0 +1,13 @@
+{% extends 'shop/base.html' %}{% block content %}
+<h1>My stores</h1>
+<a href="{% url 'store_create' %}">Create store</a> |
+<a href="{% url 'product_create' %}">Add product</a>{% for s in stores %}
+<h2>{{s.name}}</h2>
+<a href="{% url 'store_edit' s.pk %}">Edit</a>
+<a href="{% url 'store_delete' s.pk %}">Delete</a>
+{% for p in s.products.all %} {% if p.is_active %}
+<p>
+  {{p.name}} — R{{p.price}} <a href="{% url 'product_edit' p.pk %}">Edit</a>
+  <a href="{% url 'product_delete' p.pk %}">Delete</a>
+</p>
+{% endif %} {% endfor %} {% endfor %} {% endblock %}

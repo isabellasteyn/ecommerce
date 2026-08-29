@@ -1,0 +1,11 @@
+{% extends 'shop/base.html' %}{% block content %}
+<h1>{{title}}</h1>
+<form method="post">
+  {% csrf_token %}<label>Store</label
+  ><select name="store">
+    {% for s in stores %}
+    <option value="{{s.pk}}">{{s.name}}</option>
+    {% endfor %}</select
+  >{{form.as_p}}<button>Save</button>
+</form>
+{% endblock %}

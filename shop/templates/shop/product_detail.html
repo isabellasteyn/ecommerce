@@ -1,0 +1,23 @@
+{% extends 'shop/base.html' %}{% block content %}
+<h1>{{product.name}}</h1>
+<p>{{product.description}}</p>
+<p>R{{product.price}} | Stock {{product.stock}}</p>
+{% if is_buyer and product.stock > 0 %}
+<form method="post" action="{% url 'cart_add' product.pk %}">
+  {% csrf_token %}
+  <label for="quantity">Quantity</label>
+  <input id="quantity" type="number" name="quantity" value="1" min="1" max="{{product.stock}}" />
+  <button>Add to cart</button>
+</form>
+{% endif %}
+<h2>Reviews</h2>
+{% for r in product.reviews.all %}
+<p>
+  {{r.rating}}/5 — {{r.comment}} {% if r.verified %}<strong
+    >Verified purchase</strong
+  >{% else %}Unverified{% endif %}
+</p>
+{% endfor %}{% if is_buyer %}
+<h3>Leave a review</h3>
+<form method="post">{% csrf_token %}{{form.as_p}}<button>Submit</button></form>
+{% endif %}{% endblock %}

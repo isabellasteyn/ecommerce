@@ -1,0 +1,14 @@
+{% extends 'shop/base.html' %}{% block content %}
+<h1>Login</h1>
+<form method="post">
+  {% csrf_token %}<input name="username" placeholder="Username" /><input
+    type="password"
+    name="password"
+    placeholder="Password"
+  /><button>Login</button>
+</form>
+<a
+  href="{% url 'forgot_password' %}"
+  style="display: inline-block; margin-top: 4px"
+  >Forgot password?</a
+>{% endblock %}

@@ -1,0 +1,169 @@
+<mxfile host="app.diagrams.net" agent="ChatGPT">
+  <diagram name="eCommerce Class Diagram" id="0">
+    <mxGraphModel dx="1542" dy="917" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" value="" />
+        <mxCell id="1" parent="0" value="" />
+        <mxCell id="c1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="User" vertex="1">
+          <mxGeometry height="165" width="240" x="50" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c1a" parent="c1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- username: String&lt;br&gt;- email: String&lt;br&gt;- password: String" vertex="1">
+          <mxGeometry height="68" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c1l" parent="c1" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="c1m" parent="c1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ register(): void&lt;br&gt;+ login(): boolean&lt;br&gt;+ logout(): void" vertex="1">
+          <mxGeometry height="68" width="240" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="Store" vertex="1">
+          <mxGeometry height="165" width="250" x="350" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c2a" parent="c2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- name: String&lt;br&gt;- description: String&lt;br&gt;- created_at: DateTime" vertex="1">
+          <mxGeometry height="68" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c2l" parent="c2" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="c2m" parent="c2" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ create_store(): void&lt;br&gt;+ update_store(): void" vertex="1">
+          <mxGeometry height="48" width="250" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="Product" vertex="1">
+          <mxGeometry height="190" width="270" x="680" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c3a" parent="c3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- name: String&lt;br&gt;- description: String&lt;br&gt;- price: Float&lt;br&gt;- stock: Integer" vertex="1">
+          <mxGeometry height="88" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c3l" parent="c3" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="c3m" parent="c3" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ create_product(): void&lt;br&gt;+ update_product(): void&lt;br&gt;+ update_stock(): void" vertex="1">
+          <mxGeometry height="68" width="270" y="122" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="Order" vertex="1">
+          <mxGeometry height="165" width="270" x="350" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="c4a" parent="c4" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- created_at: DateTime&lt;br&gt;- total: Float&lt;br&gt;- invoice_number: UUID" vertex="1">
+          <mxGeometry height="68" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c4l" parent="c4" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="c4m" parent="c4" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ calculate_total(): Float&lt;br&gt;+ generate_invoice(): void" vertex="1">
+          <mxGeometry height="48" width="270" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="OrderItem" vertex="1">
+          <mxGeometry height="135" width="250" x="700" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="c5a" parent="c5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- quantity: Integer&lt;br&gt;- unit_price: Float" vertex="1">
+          <mxGeometry height="48" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c5l" parent="c5" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c5m" parent="c5" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ calculate_subtotal(): Float" vertex="1">
+          <mxGeometry height="35" width="250" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="Review" vertex="1">
+          <mxGeometry height="175" width="260" x="1030" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="c6a" parent="c6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- rating: Integer&lt;br&gt;- comment: String&lt;br&gt;- verified: Boolean&lt;br&gt;- created_at: DateTime" vertex="1">
+          <mxGeometry height="88" width="260" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c6l" parent="c6" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="260" y="114" as="geometry" />
+        </mxCell>
+        <mxCell id="c6m" parent="c6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ verify(): void" vertex="1">
+          <mxGeometry height="35" width="260" y="122" as="geometry" />
+        </mxCell>
+        <mxCell id="c7" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="PasswordResetToken" vertex="1">
+          <mxGeometry height="160" width="260" x="50" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="c7a" parent="c7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- token: String&lt;br&gt;- expires_at: DateTime&lt;br&gt;- used: Boolean" vertex="1">
+          <mxGeometry height="68" width="260" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c7l" parent="c7" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="260" y="94" as="geometry" />
+        </mxCell>
+        <mxCell id="c7m" parent="c7" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ is_valid(): boolean&lt;br&gt;+ mark_used(): void" vertex="1">
+          <mxGeometry height="48" width="260" y="102" as="geometry" />
+        </mxCell>
+        <mxCell id="c8" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;whiteSpace=wrap;html=1;" value="Cart" vertex="1">
+          <mxGeometry height="180" width="270" x="1020" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="c8a" parent="c8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="- items: Dictionary&lt;br&gt;- session_id: String" vertex="1">
+          <mxGeometry height="48" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="c8l" parent="c8" style="line;strokeWidth=1;fillColor=none;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="74" as="geometry" />
+        </mxCell>
+        <mxCell id="c8m" parent="c8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;whiteSpace=wrap;html=1;" value="+ add_item(): void&lt;br&gt;+ update_quantity(): void&lt;br&gt;+ remove_item(): void&lt;br&gt;+ calculate_total(): Float" vertex="1">
+          <mxGeometry height="88" width="270" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="e100" edge="1" parent="1" source="c1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c2" value="owns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e101" edge="1" parent="1" source="c2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c3" value="contains">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="610" y="90" />
+              <mxPoint x="610" y="90" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e102" edge="1" parent="1" source="c1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c4" value="places">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="290" />
+              <mxPoint x="485" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e103" edge="1" parent="1" source="c4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c5" value="contains">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e104" edge="1" parent="1" source="c3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c5" value="appears in">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="760" y="260" />
+              <mxPoint x="760" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e105" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c6" value="writes">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="20" />
+              <mxPoint x="1160" y="20" />
+            </Array>
+            <mxPoint x="290" y="80" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e106" edge="1" parent="1" source="c3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c6" value="has">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1010" y="190" />
+              <mxPoint x="1010" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e107" edge="1" parent="1" source="c1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c7" value="has">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="120" y="250" />
+              <mxPoint x="120" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e108" edge="1" parent="1" source="c8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;startArrow=none;" target="c3" value="contains">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1155" y="270" />
+              <mxPoint x="815" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      <mxCell id="diagram_heading" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontStyle=1;fontSize=22;" value="eCommerce Application - Class Diagram" vertex="1"><mxGeometry height="35" width="1400" x="60" y="10" as="geometry" /></mxCell></root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
