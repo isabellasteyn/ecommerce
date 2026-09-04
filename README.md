@@ -24,6 +24,7 @@ A user registers as either a vendor or a buyer. Vendors manage their own stores 
 
 ```bash
 git clone https://github.com/isabellasteyn/ecommerce.git
+cd ecommerce
 ```
 
 2. Create and activate a virtual environment inside the project folder.
@@ -63,7 +64,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-7. Copy the environment example file.
+7. Copy the environment template file and replace with your own environment variables.
 
 ```bash
 cp .env.example .env
@@ -110,6 +111,7 @@ The project uses Django's console email backend by default. Checkout invoices an
 To run project tests, use:
 
 ```bash
+python manage.py check
 python manage.py test
 ```
 
