@@ -18,6 +18,7 @@ class Store(models.Model):
     )
     name = models.CharField(max_length=120)
     description = models.TextField(blank=True)
+    logo = models.ImageField(upload_to="store_logos/", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
@@ -35,6 +36,9 @@ class Product(models.Model):
     )
     name = models.CharField(max_length=150)
     description = models.TextField(blank=True)
+    image = models.ImageField(
+        upload_to="product_images/", blank=True, null=True
+    )
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)

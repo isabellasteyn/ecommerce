@@ -1,13 +1,42 @@
-{% extends 'shop/base.html' %}{% block content %}
+{% extends "shop/base.html" %} {% block content %}
 <h1>My stores</h1>
-<a href="{% url 'store_create' %}">Create store</a> |
-<a href="{% url 'product_create' %}">Add product</a>{% for s in stores %}
-<h2>{{s.name}}</h2>
-<a href="{% url 'store_edit' s.pk %}">Edit</a>
-<a href="{% url 'store_delete' s.pk %}">Delete</a>
-{% for p in s.products.all %} {% if p.is_active %}
 <p>
-  {{p.name}} — R{{p.price}} <a href="{% url 'product_edit' p.pk %}">Edit</a>
-  <a href="{% url 'product_delete' p.pk %}">Delete</a>
+  <a href="{% url 'store_create' %}">Create store</a>
+  |
+  <a href="{% url 'product_create' %}">Add product</a>
 </p>
-{% endif %} {% endfor %} {% endfor %} {% endblock %}
+{% for store in stores %}
+<article class="store-card">
+  <h2>
+    <a href="{% url 'store_detail' store.pk %}"> {{ store.name }} </a>
+  </h2>
+  {% if store.logo %}
+  <a href="{% url 'store_detail' store.pk %}">
+    <img
+      src="{{ store.logo.url }}"
+      alt="{{ store.name }} logo"
+      class="store-logo"
+    />
+  </a>
+  {% endif %}
+  <p>{{ store.description }}</p>
+  <p>
+    <a href="{% url 'store_detail' store.pk %}">View</a>
+    <a href="{% url 'store_edit' store.pk %}">Edit</a>
+    <a href="{% url 'store_delete' store.pk %}">Delete</a>
+  </p>
+  <h3>Products</h3>
+  {% for product in store.products.all %} {% if product.is_active %}
+  <p>
+    <a href="{% url 'product_detail' product.pk %}"> {{ product.name }} </a>
+    — R{{ product.price }}
+    <a href="{% url 'product_edit' product.pk %}"> Edit </a>
+    <a href="{% url 'product_delete' product.pk %}"> Delete </a>
+  </p>
+  {% endif %} {% empty %}
+  <p>No products yet.</p>
+  {% endfor %}
+</article>
+{% empty %}
+<p>You have not created any stores yet.</p>
+{% endfor %} {% endblock %}

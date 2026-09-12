@@ -5,6 +5,29 @@
     <meta charset="utf-8" />
     <title>eCommerce</title>
     <style>
+      .store-logo,
+      .product-image {
+        display: block;
+        width: auto;
+        max-width: 320px;
+        max-height: 240px;
+        object-fit: contain;
+        margin: 12px 0;
+      }
+      .store-card,
+      .product-card {
+        margin: 20px 0;
+        padding: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+      .inline-form {
+        display: inline-block;
+        margin: 8px 0;
+      }
+      .current-image {
+        margin-bottom: 16px;
+      }
       body {
         font-family: Arial, sans-serif;
         max-width: 1000px;
@@ -39,17 +62,15 @@
   <body>
     <nav>
       <a href="{% url 'home' %}">Products</a>
-      {% if is_buyer %}<a href="{% url 'cart' %}">Cart</a>{% endif %}
-
-      {% if user.is_authenticated %} {% if is_vendor %}
-      <a href="{% url 'store_list' %}">My stores</a>
-      {% endif %}
-
+      {% if is_buyer %}<a href="{% url 'cart' %}">Cart</a>{% endif %} 
+      {% if user.is_authenticated %} 
+        {% if is_vendor %}
+          <a href="{% url 'store_list' %}">My stores</a>
+        {% endif %}
       <a href="{% url 'logout' %}">Logout</a>
-
       {% else %}
-      <a href="{% url 'login' %}">Login</a>
-      <a href="{% url 'register' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
       {% endif %}
     </nav>
     {% for message in messages %}

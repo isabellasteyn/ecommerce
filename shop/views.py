@@ -7,12 +7,14 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group, User
 from django.contrib.auth.password_validation import validate_password
 from django.core.mail import send_mail
+from django.views.decorators.http import require_POST
 from django.db import transaction
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .forms import RegisterForm, StoreForm, ProductForm, ReviewForm
 from shop.models import Store, Product, Order, OrderItem, PasswordResetToken
+from .services.x_client import post_product, post_store
 
 
 def is_vendor(u):
@@ -106,12 +108,17 @@ def store_list(request):
 @user_passes_test(is_vendor)
 def store_create(request):
     """Create a store owned by the logged-in vendor."""
-    form = StoreForm(request.POST or None)
+    form = StoreForm(
+        request.POST or None,
+        request.FILES or None,
+    )
     if request.method == "POST" and form.is_valid():
         store = form.save(commit=False)
         store.owner = request.user
         store.save()
-        return redirect("store_list")
+        post_store(store)
+        return redirect("store_detail", pk=store.pk)
+
     return render(
         request,
         "shop/form.html",
@@ -119,7 +126,7 @@ def store_create(request):
             "form": form,
             "title": "Create store",
             "cancel_url": "store_list",
-        }
+        },
     )
 
 
@@ -135,21 +142,45 @@ def owned_store(request, pk):
 
 @login_required
 @user_passes_test(is_vendor)
+def store_detail(request, pk):
+    """Display one of the vendor's stores and its active products."""
+    store = owned_store(request, pk)
+    products = store.products.filter(
+        is_active=True,
+    )
+    return render(
+        request,
+        "shop/store_detail.html",
+        {
+            "store": store,
+            "products": products,
+        },
+    )
+
+
+@login_required
+@user_passes_test(is_vendor)
 def store_edit(request, pk):
     """Edit one of the logged-in vendor's stores."""
     store = owned_store(request, pk)
-    form = StoreForm(request.POST or None, instance=store)
+    form = StoreForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=store,
+    )
     if request.method == "POST" and form.is_valid():
         form.save()
-        return redirect("store_list")
+        return redirect("store_detail", pk=store.pk)
+
     return render(
         request,
         "shop/form.html",
         {
             "form": form,
             "title": "Edit store",
-            "cancel_url": "store_list",
-        }
+            "cancel_url": "store_detail",
+            "cancel_pk": store.pk,
+        },
     )
 
 
@@ -181,20 +212,48 @@ def store_delete(request, pk):
 
 @login_required
 @user_passes_test(is_vendor)
+@require_POST
+def store_logo_delete(request, pk):
+    """Remove a store logo owned by the logged-in vendor."""
+    store = owned_store(request, pk)
+    if store.logo:
+        store.logo.delete(save=False)
+        store.logo = None
+        store.save(update_fields=["logo"])
+
+        messages.success(
+            request,
+            "Store logo removed successfully.",
+        )
+    return redirect("store_detail", pk=store.pk)
+
+
+@login_required
+@user_passes_test(is_vendor)
 def product_create(request):
-    """Create a product in one of the logged-in vendor's active stores."""
+    """Create a product in one of the vendor's active stores."""
     stores = request.user.stores.filter(is_active=True)
     if not stores:
         messages.error(request, "Create a store first.")
         return redirect("store_create")
-    form = ProductForm(request.POST or None)
+    form = ProductForm(
+        request.POST or None,
+        request.FILES or None,
+    )
     if request.method == "POST" and form.is_valid():
         store_id = request.POST.get("store")
-        store = get_object_or_404(Store, pk=store_id, owner=request.user)
+        store = get_object_or_404(
+            Store,
+            pk=store_id,
+            owner=request.user,
+            is_active=True,
+        )
         product = form.save(commit=False)
         product.store = store
         product.save()
-        return redirect("store_list")
+        post_product(product)
+        return redirect("product_detail", pk=product.pk)
+
     return render(
         request,
         "shop/product_form.html",
@@ -202,8 +261,8 @@ def product_create(request):
             "form": form,
             "stores": stores,
             "title": "Add product",
-            "cancel_url": "store_list"
-        }
+            "cancel_url": "store_list",
+        },
     )
 
 
@@ -223,18 +282,24 @@ def owned_product(request, pk):
 def product_edit(request, pk):
     """Edit a product owned by the logged-in vendor."""
     product = owned_product(request, pk)
-    form = ProductForm(request.POST or None, instance=product)
+    form = ProductForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=product,
+    )
     if request.method == "POST" and form.is_valid():
         form.save()
-        return redirect("store_list")
+        return redirect("product_detail", pk=product.pk)
+
     return render(
         request,
         "shop/form.html",
         {
             "form": form,
             "title": "Edit product",
-            "cancel_url": "store_list"
-        }
+            "cancel_url": "product_detail",
+            "cancel_pk": product.pk,
+        },
     )
 
 
@@ -260,6 +325,25 @@ def product_delete(request, pk):
             "cancel_url": "store_list"
         }
     )
+
+
+@login_required
+@user_passes_test(is_vendor)
+@require_POST
+def product_image_delete(request, pk):
+    """Remove a product image owned by the logged-in vendor."""
+    product = owned_product(request, pk)
+
+    if product.image:
+        product.image.delete(save=False)
+        product.image = None
+        product.save(update_fields=["image"])
+        messages.success(
+            request,
+            "Product image removed successfully.",
+        )
+
+    return redirect("product_detail", pk=product.pk)
 
 
 def product_detail(request, pk):

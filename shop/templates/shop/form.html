@@ -1,12 +1,31 @@
 {% extends 'shop/base.html' %}{% block content %}
 <h1>{{title}}</h1>
-<form method="post">
-  {% csrf_token %}{{form.as_p}}
-  <button>Save</button>
-  {% if cancel_url %}
-  <a href="{% url cancel_url %}">
-    <button type="button">Cancel</button>
-  </a>
-  {% endif %}
+{% if form.instance.logo %}
+<section class="current-image">
+  <p>Current logo:</p>
+  <img
+    src="{{ form.instance.logo.url }}"
+    alt="{{ form.instance.name }} logo"
+    class="store-logo"
+  />
+</section>
+{% endif %} {% if form.instance.image %}
+<section class="current-image">
+  <p>Current product image:</p>
+  <img
+    src="{{ form.instance.image.url }}"
+    alt="{{ form.instance.name }}"
+    class="product-image"
+  />
+</section>
+{% endif %}
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Save</button>
+  {% if cancel_url %} {% if cancel_pk %}
+  <a href="{% url cancel_url cancel_pk %}">Cancel</a>
+  {% else %}
+  <a href="{% url cancel_url %}">Cancel</a>
+  {% endif %} {% endif %}
 </form>
 {% endblock %}

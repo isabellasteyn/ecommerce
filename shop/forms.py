@@ -50,7 +50,7 @@ class StoreForm(forms.ModelForm):
     class Meta:
         """Configure the Store model fields shown in the form."""
         model = Store
-        fields = ["name", "description"]
+        fields = ["name", "description", "logo"]
 
 
 class ProductForm(forms.ModelForm):
@@ -59,7 +59,7 @@ class ProductForm(forms.ModelForm):
     class Meta:
         """Configure the Product model fields shown in the form."""
         model = Product
-        fields = ["name", "description", "price", "stock"]
+        fields = ["name", "description", "price", "stock", "image"]
 
 
 class ReviewForm(forms.ModelForm):

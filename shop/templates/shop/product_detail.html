@@ -1,12 +1,41 @@
 {% extends 'shop/base.html' %}{% block content %}
 <h1>{{product.name}}</h1>
+{% if product.image %}
+<img
+  src="{{ product.image.url }}"
+  alt="{{ product.name }}"
+  class="product-image"
+/>
+{% else %}
+<p>No product image uploaded.</p>
+{% endif %}
 <p>{{product.description}}</p>
 <p>R{{product.price}} | Stock {{product.stock}}</p>
-{% if is_buyer and product.stock > 0 %}
+{% if is_vendor and product.store.owner == user %}
+<p>
+  <a href="{% url 'product_edit' product.pk %}"> Edit product </a>
+</p>
+{% if product.image %}
+<form
+  method="post"
+  action="{% url 'product_image_delete' product.pk %}"
+  class="inline-form"
+>
+  {% csrf_token %}
+  <button type="submit">Remove product image</button>
+</form>
+{% endif %} {% endif %} {% if is_buyer and product.stock > 0 %}
 <form method="post" action="{% url 'cart_add' product.pk %}">
   {% csrf_token %}
   <label for="quantity">Quantity</label>
-  <input id="quantity" type="number" name="quantity" value="1" min="1" max="{{product.stock}}" />
+  <input
+    id="quantity"
+    type="number"
+    name="quantity"
+    value="1"
+    min="1"
+    max="{{product.stock}}"
+  />
   <button>Add to cart</button>
 </form>
 {% endif %}
