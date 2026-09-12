@@ -106,6 +106,43 @@ Open <http://127.0.0.1:8000/> in a browser. Administrator access is available at
 
 The project uses Django's console email backend by default. Checkout invoices and password-reset links are printed in the terminal instead of being sent to a real email address.
 
+## REST API
+
+Create a token by sending a username and password to the token endpoint:
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/token/ \
+  -d "username=vendor" -d "password=your-password"
+```
+
+Use the returned token on protected requests:
+
+```bash
+curl http://127.0.0.1:8000/api/stores/ \
+  -H "Authorization: Token YOUR_TOKEN"
+```
+
+Vendors can create stores and add products to their own stores. Buyers and
+vendors can retrieve vendors, active stores, active products, and reviews. See
+`Planning/5_API_Plan.md` for the endpoint table and sequence diagram.
+
+## X integration
+
+Create an X developer project/app with read-and-write permissions, then place
+its OAuth 1.0a credentials in `.env`:
+
+```text
+X_API_KEY=...
+X_API_SECRET=...
+X_ACCESS_TOKEN=...
+X_ACCESS_TOKEN_SECRET=...
+```
+
+When all credentials are set, store and product creation through either the web
+forms or API publishes an announcement. Logos and product images are uploaded
+when present. With blank credentials, posting is disabled without interrupting
+normal eCommerce functionality.
+
 ## Tests
 
 To run project tests, use:
